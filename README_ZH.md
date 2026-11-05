@@ -209,6 +209,17 @@ python3 skills/jiangshan-atlas/scripts/jiangshan.py --year 1079,1080,1094,1097 -
 
 ## 本地运行
 
+也可以使用项目根目录的启停脚本（需要 Python 3，支持 macOS / Linux）：
+
+```bash
+./service.sh start    # 后台启动，默认 http://127.0.0.1:8000/
+./service.sh status   # 查看运行状态（不带参数也会显示状态）
+./service.sh stop     # 停止服务
+./service.sh restart  # 重启服务
+```
+
+可用 `PORT=8001 ./service.sh start` 指定启动端口；重启默认使用 8000，若需其他端口请用 `PORT=8001 ./service.sh restart`。日志位于 `.runtime/service.log`，PID 和端口记录位于 `.runtime/service.json`。脚本只停止自己启动且身份匹配的进程，端口被其他服务占用时会报错。
+
 项目为纯静态网页，无需安装任何依赖或构建工具，克隆后用任意静态服务器打开即可：
 
 ```bash
