@@ -27,6 +27,21 @@
 
   // Shared place anchors [lng, lat]
   const P = {
+    yiling_wu: [109.88, 31.07],
+    yiling_zigui: [110.69, 30.98],
+    yiling: [111.291, 30.691],
+    yiling_xiaoting: [111.43, 30.45],
+    yiling_maanshan: [111.38, 30.49],
+    yiling_baidi: [109.571, 31.041],
+
+    chibi_xiangyang: [112.14, 32.04],
+    chibi_jiangling: [112.241, 30.331],
+    chibi_changban: [111.79, 30.83],
+    chibi_hanjin: [112.57, 30.7],
+    chibi_xiakou: [114.3, 30.55],
+    chibi: [113.63, 29.88],
+    chibi_wulin: [113.61, 29.94],
+
     xianyang: [108.7, 34.33],
     hangu: [110.87, 34.63],
     anyi: [111.13, 35.1],
@@ -62,6 +77,180 @@
   const FORT_GUANDU_YUAN = [[113.90, 34.90], [114.00, 34.91], [114.10, 34.90]];
 
   const CAMPAIGNS = {
+    yiling: {
+      key: 'yiling',
+      zh: '夷陵之战',
+      en: 'Battle of Yiling',
+      span: { zh: '221—222年 · 刘备 vs 孙权', en: '221–222 CE · Liu Bei vs Sun Quan' },
+      yearRange: [221, 222],
+      match: { dynastyKey: 'sanguo', year: 222, site: '夷陵' },
+      sides: [{ id: 'shu', tone: 'ink', zh: '蜀军', en: 'Shu', lead: { zh: '刘备 · 冯习 · 张南', en: 'Liu Bei · Feng Xi · Zhang Nan' } }, { id: 'wu', tone: 'cinnabar', zh: '吴军', en: 'Wu', lead: { zh: '陆逊 · 朱然 · 潘璋', en: 'Lu Xun · Zhu Ran · Pan Zhang' } }],
+      source: { zh: '据《三国志》陈寿正文（先主传、吴主传、陆逊传）示意复原。营址与路线近似；决战月次有异，裴注异说另标，月份为农历。', en: 'After Sanguozhi main text: Liu Bei, Sun Quan and Lu Xun. Camps and routes approximate; battle month disputed; lunar dates.' },
+      phases: [
+        {
+          year: 221,
+          date: { zh: '章武元年 七月以后', en: '221 CE · from lunar month 7' },
+          title: { zh: '刘备东征，吴班进至秭归', en: 'Liu Bei advances east' },
+          view: [109.35, 30.5, 111.38, 31.41],
+          text: { zh: '刘备因孙权袭击关羽而决意东征，七月率军伐吴，不接受孙权请和。吴班、冯习自巫县（今重庆巫山）进击李异等，军至秭归（今湖北秭归一带）。峡江路线表示东进方向，古县城与水道位置按近似处理。', en: 'Angered by Sun Quan’s attack on Guan Yu, Liu Bei marches east in the seventh lunar month and rejects peace. Wu Ban and Feng Xi defeat Li Yi’s forces and reach Zigui. The gorge route is approximate.' },
+          // 《先主传》v032-b0035
+          quote: '“将军吴班、冯习自巫攻破异等，军次秭归，武陵五溪蛮夷遣使请兵。”',
+          places: ['yiling_zigui'],
+          arrows: [{ side: 'shu', pts: [[109.88, 31.07], [110.05, 31.04], [110.27, 31.03], [110.47, 31.06], [110.69, 30.98]], heavy: true }, { side: 'wu', pts: [[110.77, 30.98], [110.94, 30.86], [111.11, 30.8]], dashed: true }],
+          units: [{ side: 'shu', at: [109.9, 30.75], label: { zh: '吴班 · 冯习', en: 'Wu Ban · Feng Xi' } }, { side: 'wu', at: [110.83, 31.22], label: { zh: '李异等', en: 'Li Yi and others' } }],
+        },
+        {
+          year: 222,
+          date: { zh: '章武二年 正月—二月', en: '222 CE · lunar months 1–2' },
+          title: { zh: '水陆进军，刘备驻营猇亭', en: 'The Shu army reaches Xiaoting' },
+          view: [110.42, 30.14, 111.85, 31.2],
+          text: { zh: '吴班、陈式水军屯夷陵（今湖北宜昌）两岸；刘备自秭归沿山进军，驻营猇亭（今宜昌猇亭一带），黄权督江北军拒吴。孙权命陆逊统领朱然、潘璋等五万人抵御。图中只示两岸部署，不把分营数画成实际营址。', en: 'Wu Ban and Chen Shi station boats at Yiling. Liu advances overland to Xiaoting; Huang Quan holds the north-bank front. Sun Quan appoints Lu Xun to lead 50,000 men. Camp locations are schematic.' },
+          // 《先主传》v032-b0036
+          quote: '“先主军还秭归，将军吴班、陈式水军屯夷陵，夹江东西岸。”',
+          places: ['yiling_zigui', 'yiling', 'yiling_xiaoting'],
+          arrows: [{ side: 'shu', pts: [[110.69, 30.98], [110.86, 30.86], [111.05, 30.81], [111.291, 30.691]] }, { side: 'shu', pts: [[110.72, 30.91], [110.95, 30.7], [111.12, 30.56], [111.43, 30.45]], heavy: true }, { side: 'wu', pts: [[111.72, 30.3], [111.65, 30.37], [111.58, 30.46]] }],
+          units: [{ side: 'shu', at: [111.32, 30.92], label: { zh: '黄权 · 江北军', en: 'Huang Quan' } }, { side: 'wu', at: [111.67, 30.65], label: { zh: '陆逊', en: 'Lu Xun' } }],
+        },
+        {
+          year: 222,
+          date: { zh: '章武二年 相持期间', en: '222 CE · stalemate' },
+          title: { zh: '吴班诱战，陆逊持军不出', en: 'Lu Xun refuses the bait' },
+          view: [111.07, 30.24, 111.75, 30.83],
+          text: { zh: '刘备沿峡江连营，派吴班数千人在平地驻扎诱战，另伏兵八千于谷中。陆逊判断有诈，不听诸将出击之请，刘备只得引伏兵出谷。陆逊认为蜀军初至气锐，待其驻留日久、兵疲意沮，再寻机破敌。', en: 'Liu sends Wu Ban to tempt an attack while 8,000 men lie in ambush. Lu Xun holds his troops back, and Liu reveals the hidden force. Lu waits until the opposing army is tired and frustrated.' },
+          // 《陆逊传》v058-b0009
+          quote: '“先遣吴班将数千人于平地立营，欲以挑战。……备知其计不可，乃引伏兵八千，从谷中出。”',
+          places: [],
+          forts: [{ side: 'shu', pts: [[111.3, 30.52], [111.38, 30.48], [111.44, 30.43]], face: 1 }, { side: 'wu', pts: [[111.52, 30.54], [111.57, 30.47], [111.61, 30.4]], face: -1 }],
+          arrows: [{ side: 'shu', pts: [[111.43, 30.39], [111.48, 30.38], [111.53, 30.40]], dashed: true, label: { zh: '吴班诱战', en: 'Wu Ban’s bait' } }],
+          units: [{ side: 'shu', at: [111.2, 30.66], label: { zh: '刘备', en: 'Liu Bei' } }, { side: 'wu', at: [111.65, 30.68], label: { zh: '陆逊', en: 'Lu Xun' } }],
+        },
+        {
+          year: 222,
+          date: { zh: '章武二年 夏季', en: '222 CE · summer' },
+          title: { zh: '陆逊纵火，诸军并破连营', en: 'Lu Xun burns the camps' },
+          view: [111.07, 30.24, 111.75, 30.83],
+          text: { zh: '相持日久，陆逊先攻一营不利，随后命士卒各持茅草，施行火攻。得手后，各军同时进击，攻破蜀军四十余营，冯习、张南等战死。图中少数失守壁垒代表连营崩溃；史书没有逐营坐标，不虚构四十余处交战地点。', en: 'After an unsuccessful assault on one camp, Lu orders his men to carry thatch and attack with fire. All units then advance, breaking over forty camps. Feng Xi and Zhang Nan fall. The few drawn ramparts stand for the wider collapse.' },
+          // 《陆逊传》v058-b0011
+          quote: '“乃敕各持一把茅，以火攻拔之。……备将杜路、刘宁等穷逼请降。”',
+          forts: [{ side: 'shu', pts: [[111.3, 30.52], [111.38, 30.48], [111.44, 30.43]], face: 1, lost: true }, { side: 'wu', pts: [[111.52, 30.54], [111.57, 30.47], [111.61, 30.4]], face: -1, dim: true }],
+          arrows: [{ side: 'wu', pts: [[111.55, 30.53], [111.47, 30.55], [111.34, 30.53]], heavy: true }, { side: 'wu', pts: [[111.6, 30.4], [111.53, 30.39], [111.44, 30.43]] }],
+          clashes: [{ at: [111.34, 30.53], label: { zh: '火攻破营', en: 'Camps fall to fire' } }],
+          units: [{ side: 'shu', at: [111.19, 30.69], label: { zh: '蜀军连营', en: 'Shu camps' } }, { side: 'wu', at: [111.66, 30.65], label: { zh: '陆逊', en: 'Lu Xun' } }],
+        },
+        {
+          year: 222,
+          date: { zh: '章武二年 夏季 败军收聚', en: '222 CE · the last stand' },
+          title: { zh: '刘备退保马鞍，吴军四面攻', en: 'Liu’s last stand on Ma’an Hill' },
+          view: [111.07, 30.24, 111.75, 30.83],
+          text: { zh: '连营被破后，刘备登马鞍山（猇亭附近，确址未定），列兵自卫。陆逊督促各军从四面逼攻，蜀军瓦解。刘备趁夜逃出，舟船器械与水陆军资大多丧失。包围线只表达正文所载四面进逼，不表示精确阵形。', en: 'Liu Bei rallies on Ma’an Hill near Xiaoting. Lu Xun presses from all sides and the defense collapses. Liu escapes at night, losing most boats and stores. The ring shows encirclement, not a surveyed battle formation.' },
+          // 《陆逊传》v058-b0011
+          quote: '“备升马鞍山，陈兵自绕。逊督促诸军四面蹙之，土崩瓦解，死者万数。”',
+          areas: [{ side: 'shu', by: 'wu', center: [111.38, 30.49], rx: 0.09, ry: 0.08, label: { zh: '马鞍山被围', en: 'Ma’an surrounded' }, below: true }],
+          arrows: [{ side: 'wu', pts: [[111.6, 30.59], [111.52, 30.56], [111.47, 30.52]] }, { side: 'wu', pts: [[111.54, 30.34], [111.45, 30.36], [111.4, 30.4]] }, { side: 'shu', pts: [[111.34, 30.51], [111.26, 30.58], [111.18, 30.63]], dashed: true }],
+          units: [{ side: 'shu', at: [111.38, 30.49], label: { zh: '刘备', en: 'Liu Bei' } }, { side: 'wu', at: [111.64, 30.7], label: { zh: '陆逊', en: 'Lu Xun' } }],
+        },
+        {
+          year: 222,
+          date: { zh: '章武二年 败后西退', en: '222 CE · retreat west' },
+          title: { zh: '刘备退至白帝，陆逊止追', en: 'Liu retreats to Baidi' },
+          view: [109.22, 30.15, 111.77, 31.43],
+          text: { zh: '刘备从猇亭退至秭归，收集散兵后弃船，由步道还鱼复（今重庆奉节），驻白帝城。吴将请求继续进攻，陆逊、朱然、骆统担心曹丕另有图谋，主张撤回。图中分段表示退却方向，不把山间步道当作已考定路线。', en: 'Liu reaches Zigui, gathers stragglers, abandons his boats and returns overland to Yufu and Baidi. Lu Xun, Zhu Ran and Luo Tong oppose further pursuit because of the threat from Cao Pi. The mountain route remains approximate.' },
+          // 《先主传》v032-b0036
+          quote: '“先主自猇亭还秭归，收合离散兵，遂弃船舫，由步道还鱼复，改鱼复县曰永安。”',
+          places: ['yiling_baidi', 'yiling_zigui'],
+          arrows: [{ side: 'shu', pts: [[111.43, 30.45], [111.12, 30.65], [110.94, 30.85], [110.69, 30.98]], dashed: true }, { side: 'shu', pts: [[110.69, 30.98], [110.45, 31.15], [110.17, 31.2], [109.91, 31.17], [109.571, 31.041]], dashed: true }, { side: 'wu', pts: [[111.59, 30.48], [111.34, 30.59], [111.17, 30.75]], heavy: true }],
+          units: [{ side: 'wu', at: [111.33, 31.04], label: { zh: '吴军追击后止兵', en: 'Wu halts the pursuit' } }],
+        },
+      ],
+    },
+    chibi: {
+      key: 'chibi',
+      zh: '赤壁之战',
+      en: 'Battle of Red Cliffs',
+      span: { zh: '208年 · 曹操 vs 孙刘联军', en: '208 CE · Cao Cao vs Sun–Liu' },
+      yearRange: [208, 208],
+      match: { dynastyKey: 'donghan', year: 208, site: '赤壁' },
+      sides: [{ id: 'cao', tone: 'ink', zh: '曹军', en: 'Cao', lead: { zh: '曹操', en: 'Cao Cao' } }, { id: 'allies', tone: 'cinnabar', zh: '孙刘联军', en: 'Sun–Liu', lead: { zh: '周瑜 · 程普 · 刘备', en: 'Zhou Yu · Cheng Pu · Liu Bei' } }],
+      source: { zh: '据《三国志》陈寿正文（武帝纪、先主传、吴主传、周瑜传、吕蒙传）示意复原。路线、战址近似；裴注异说另标，月份为农历。', en: 'After Sanguozhi main text: Cao Cao, Liu Bei, Sun Quan, Zhou Yu and Lü Meng. Routes and sites approximate; lunar months.' },
+      phases: [
+        {
+          year: 208,
+          date: { zh: '建安十三年 七月—九月', en: '208 CE · lunar months 7–9' },
+          title: { zh: '曹操南征，刘备退走夏口', en: 'Cao advances; Liu retreats' },
+          view: [111.3, 29.9, 114.65, 32.4],
+          text: { zh: '曹操南征荆州，刘表死后刘琮投降。刘备在长坂（今湖北当阳）被追军击败，转向汉津，与关羽船队会合，偕刘琦部众至夏口（今湖北武汉）。曹操进据江陵（今湖北荆州），双方沿江形势随之改变。', en: 'Cao Cao takes Jingzhou after Liu Cong surrenders. Defeated at Changban, Liu Bei reaches Hanjin, joins Guan Yu’s boats and Liu Qi’s men, and withdraws to Xiakou. Cao occupies Jiangling.' },
+          // 《武帝纪》v001-b0073
+          quote: '“九月，公到新野，琮遂降，备走夏口。公进军江陵，下令荆州吏民，与之更始。”',
+          places: [],
+          arrows: [{ side: 'cao', pts: [[112.14, 32.04], [111.97, 31.42], [111.79, 30.83], [112.241, 30.331]], heavy: true }, { side: 'allies', pts: [[111.79, 30.83], [112.57, 30.7], [113.2, 30.52], [114.3, 30.55]], dashed: true }],
+          units: [],
+        },
+        {
+          year: 208,
+          date: { zh: '建安十三年 会师迎敌', en: '208 CE · the alliance' },
+          title: { zh: '孙刘合兵，沿江迎击曹军', en: 'Sun and Liu join forces' },
+          view: [111.8, 29.48, 114.62, 30.9],
+          text: { zh: '刘备遣诸葛亮联络孙权。孙权派周瑜、程普与刘备并力迎曹，两军相遇于赤壁（今湖北赤壁西北江岸，战址有争议）。图中以曹军自江陵东下、联军自夏口溯江的路线交代会战方向，不作精确航道复原。', en: 'Liu Bei sends Zhuge Liang to Sun Quan. Zhou Yu and Cheng Pu join Liu against Cao at Red Cliffs. The routes show the approximate river approaches from Jiangling and Xiakou; the ancient channel is uncertain.' },
+          // 《周瑜传》v054-b0008
+          quote: '“权遂遣瑜及程普等与备并力逆曹公，遇于赤壁。”',
+          places: [],
+          arrows: [{ side: 'cao', pts: [[112.241, 30.331], [112.48, 30.05], [112.84, 29.8], [113.17, 29.81], [113.61, 29.94]], heavy: true }, { side: 'allies', pts: [[114.3, 30.55], [114.08, 30.28], [113.88, 30.06], [113.63, 29.88]], heavy: true }],
+          units: [{ side: 'cao', at: [112.62, 30.4], label: { zh: '曹操', en: 'Cao Cao' } }, { side: 'allies', at: [112.95, 29.52], label: { zh: '周瑜 · 程普 · 刘备', en: 'Zhou Yu · Cheng Pu · Liu Bei' } }],
+        },
+        {
+          year: 208,
+          date: { zh: '建安十三年 初战', en: '208 CE · first engagement' },
+          title: { zh: '曹军初战失利，分屯两岸', en: 'Cao falls back to the north bank' },
+          view: [113.34, 29.67, 113.91, 30.13],
+          text: { zh: '曹军已有疾病，初次交战即告失利，退驻江北，周瑜等驻在南岸。《吕蒙传》又记西破曹军于乌林（今湖北洪湖一带）。本阶段用赤壁、乌林表示两岸关系，营垒与交战位置为示意，不代表已考定的阵地。', en: 'Already affected by illness, Cao’s army loses the first encounter and falls back north of the river. Zhou Yu holds the south bank. Wulin is also named in Lü Meng’s account; camp positions are schematic.' },
+          // 《周瑜传》v054-b0008
+          quote: '“时曹公军众已有疾病，初一交战，公军败退，引次江北。瑜等在南岸。”',
+          places: ['chibi', 'chibi_wulin'],
+          forts: [{ side: 'cao', pts: [[113.48, 29.98], [113.6, 29.99], [113.71, 29.98]], face: -1 }],
+          arrows: [{ side: 'cao', pts: [[113.55, 29.84], [113.51, 29.89], [113.53, 29.96]], dashed: true }, { side: 'allies', pts: [[113.77, 29.76], [113.68, 29.79], [113.59, 29.85]] }],
+          clashes: [{ at: [113.56, 29.86] }],
+          units: [{ side: 'cao', at: [113.43, 30.07], label: { zh: '曹军', en: 'Cao' } }, { side: 'allies', at: [113.47, 29.72], label: { zh: '周瑜', en: 'Zhou Yu' } }],
+        },
+        {
+          year: 208,
+          date: { zh: '建安十三年 火攻筹备', en: '208 CE · preparing the fire attack' },
+          title: { zh: '黄盖诈降，载薪船队逼近', en: 'Huang Gai’s feigned surrender' },
+          view: [113.34, 29.67, 113.91, 30.13],
+          text: { zh: '黄盖见曹军船舰首尾相接，提出火攻。周瑜军取数十艘战船装载薪草、灌入膏油，以帷幕遮盖，先致书曹操诈降，又在大船后系好轻舟准备脱离。船队向曹军靠近，曹营官兵以为黄盖来降，伸颈观望。', en: 'Huang Gai proposes burning Cao’s closely moored ships. Boats carry fuel under coverings, with small escape craft behind. A false surrender letter persuades Cao’s men that the approaching fleet intends to defect.' },
+          // 《周瑜传》v054-b0008
+          quote: '“裹以帷幕，上建牙旗，先书报曹公，欺以欲降。”',
+          places: ['chibi_wulin'],
+          forts: [{ side: 'cao', pts: [[113.48, 29.98], [113.6, 29.99], [113.71, 29.98]], face: -1 }],
+          arrows: [{ side: 'allies', pts: [[113.78, 29.76], [113.73, 29.82], [113.67, 29.9]], dashed: true, label: { zh: '诈降接近', en: 'Feigned surrender' } }],
+          units: [{ side: 'allies', at: [113.48, 29.73], label: { zh: '黄盖', en: 'Huang Gai' } }, { side: 'cao', at: [113.43, 30.07], label: { zh: '曹军', en: 'Cao' } }],
+        },
+        {
+          year: 208,
+          date: { zh: '建安十三年 火攻决战', en: '208 CE · the fire attack' },
+          title: { zh: '火船齐发，延烧曹军营落', en: 'Fire spreads to Cao’s camps' },
+          view: [113.34, 29.67, 113.91, 30.13],
+          text: { zh: '黄盖放出载薪船，同时点火。风势猛烈，火由船舰延烧岸上营落，曹军人马烧溺甚众，遂败退。《周瑜传》正文只说风势盛猛；这里不指定风向，也不加入借东风、苦肉计或铁索连环等演义情节。', en: 'Huang Gai sets the fuel boats alight. Strong wind spreads the flames to the camps ashore, and Cao’s army retreats. The main text specifies strong wind, without giving its direction or the novel’s stratagems.' },
+          // 《周瑜传》v054-b0008
+          quote: '“盖放诸船，同时发火。时风盛猛，悉延烧岸上营落。”',
+          forts: [{ side: 'cao', pts: [[113.48, 29.98], [113.6, 29.99], [113.71, 29.98]], face: -1, lost: true }],
+          arrows: [{ side: 'allies', pts: [[113.78, 29.76], [113.71, 29.84], [113.62, 29.96]], heavy: true }, { side: 'cao', pts: [[113.56, 30.0], [113.48, 30.03], [113.41, 30.05]], dashed: true }],
+          clashes: [{ at: [113.62, 29.96], label: { zh: '营船延烧', en: 'Ships and camps burn' } }],
+          units: [{ side: 'allies', at: [113.47, 29.73], label: { zh: '黄盖', en: 'Huang Gai' } }],
+        },
+        {
+          year: 208,
+          date: { zh: '建安十三年 战后追击', en: '208 CE · pursuit' },
+          title: { zh: '联军追至南郡，曹操北归', en: 'The allies pursue toward Nanjun' },
+          view: [111.8, 29.47, 114.02, 31.17],
+          text: { zh: '曹军退保南郡，刘备与周瑜等水陆并进追击，曹操留下曹仁等守江陵，自率军北归。此后江陵仍有攻守战，不能把赤壁胜利画成当即占领江陵。本阶段止于追至南郡，不把裴注中的华容道细节画作确定路线。', en: 'The allies pursue by land and water to Nanjun. Cao leaves Cao Ren to defend Jiangling and returns north. Jiangling does not fall immediately; the later siege is outside this playback. No precise Huarong escape route is asserted.' },
+          // 《先主传》v032-b0012
+          quote: '“先主与吴军水陆并进，追到南郡，时又疾疫，北军多死，曹公引归。”',
+          places: ['chibi_wulin'],
+          arrows: [{ side: 'cao', pts: [[113.61, 29.94], [113.14, 29.92], [112.7, 30.1], [112.241, 30.331], [112.18, 30.94]], dashed: true }, { side: 'allies', pts: [[113.63, 29.88], [113.16, 29.72], [112.69, 29.87], [112.28, 30.22]], heavy: true }],
+          units: [{ side: 'cao', at: [112.66, 30.61], label: { zh: '曹仁守江陵', en: 'Cao Ren holds Jiangling' } }],
+        },
+      ],
+    },
     guandu: {
       key: 'guandu',
       zh: '官渡之战',
@@ -458,6 +647,21 @@
   };
 
   const PLACE_NAMES = {
+    yiling_wu: { zh: '巫县', en: 'Wu' },
+    yiling_zigui: { zh: '秭归', en: 'Zigui' },
+    yiling: { zh: '夷陵', en: 'Yiling' },
+    yiling_xiaoting: { zh: '猇亭', en: 'Xiaoting' },
+    yiling_maanshan: { zh: '马鞍山', en: 'Ma’an Hill' },
+    yiling_baidi: { zh: '白帝城', en: 'Baidi' },
+
+    chibi_xiangyang: { zh: '襄阳', en: 'Xiangyang' },
+    chibi_jiangling: { zh: '江陵', en: 'Jiangling' },
+    chibi_changban: { zh: '长坂', en: 'Changban' },
+    chibi_hanjin: { zh: '汉津', en: 'Hanjin' },
+    chibi_xiakou: { zh: '夏口', en: 'Xiakou' },
+    chibi: { zh: '赤壁', en: 'Red Cliffs' },
+    chibi_wulin: { zh: '乌林', en: 'Wulin' },
+
     guandu: { zh: '官渡', en: 'Guandu' },
     guandu_ye: { zh: '邺', en: 'Ye' },
     guandu_xu: { zh: '许县', en: 'Xu' },
