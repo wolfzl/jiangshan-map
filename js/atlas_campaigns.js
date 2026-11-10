@@ -41,6 +41,14 @@
     kongcang: [112.73, 35.83],
     qinbi: [112.77, 35.8],
     yonglu: [112.83, 35.87],
+    guandu: [114.001, 34.751], // Same anchor as the 200 CE milestone.
+    guandu_ye: [114.62, 36.34],
+    guandu_xu: [113.85, 34.03],
+    guandu_liyang: [114.55, 35.67],
+    guandu_baima: [114.53, 35.61], // Same anchor as the Baima lore event.
+    guandu_yanjin: [114.34, 35.33],
+    guandu_yangwu: [113.97, 35.05],
+    guandu_wuchao: [114.18, 35.08], // Approximate Yanjin-area location; ancient site disputed.
   };
 
   // Fortification lines
@@ -50,7 +58,165 @@
   const FORT_QINBI = [[112.755, 35.93], [112.745, 35.85], [112.75, 35.76], [112.77, 35.69]];
   const FORT_QIN_EAST = [[113.06, 36.02], [113.075, 35.9], [113.07, 35.78], [113.05, 35.68]];
 
+  const FORT_GUANDU_CAO = [[113.90, 34.79], [114.00, 34.80], [114.10, 34.79]];
+  const FORT_GUANDU_YUAN = [[113.90, 34.90], [114.00, 34.91], [114.10, 34.90]];
+
   const CAMPAIGNS = {
+    guandu: {
+      key: 'guandu',
+      zh: '官渡之战',
+      en: 'Battle of Guandu',
+      span: { zh: '199—200年 · 曹操 vs 袁绍', en: '199–200 CE · Cao Cao vs Yuan Shao' },
+      yearRange: [199, 200],
+      match: { dynastyKey: 'donghan', year: 200, site: '官渡' },
+      sides: [
+        { id: 'yuan', tone: 'ink', zh: '袁军', en: 'Yuan', lead: { zh: '袁绍 · 颜良、文丑、淳于琼', en: 'Yuan Shao · Yan Liang, Wen Chou' } },
+        { id: 'cao', tone: 'cinnabar', zh: '曹军', en: 'Cao', lead: { zh: '曹操 · 荀攸、曹仁、徐晃', en: 'Cao Cao · Xun You, Xu Huang' } },
+      ],
+      source: {
+        zh: '据《三国志·武帝纪》《袁绍传》《荀攸传》《张郃传》示意复原。兵力记载有异，不列双方总数；古黄河渡口、乌巢与行军路线均为近似，月份为农历。',
+        en: 'Schematic after Sanguozhi (Cao Cao, Yuan Shao, Xun You, Zhang He). Army totals disputed; crossings, Wuchao and routes approximate. Months are lunar.',
+      },
+      phases: [
+        {
+          year: 199,
+          date: { zh: '建安四年（199年）', en: '199 CE' },
+          title: { zh: '袁绍谋南下，曹操备官渡', en: 'Yuan prepares to march south' },
+          view: [113.25, 33.70, 115.15, 36.65],
+          text: {
+            zh: '袁绍击灭公孙瓒，控制河北，准备南下与曹操决战。曹操以许县（今河南许昌）为后方，遣军扼守黄河南岸，并在官渡（今河南中牟东北）构筑营垒。官渡扼住通往许县的要道，曹军可在此集中兵力，等待袁军远道而来。',
+            en: 'After defeating Gongsun Zan, Yuan Shao prepares to move south from Hebei. Cao Cao guards the southern crossings and fortifies Guandu, northeast of modern Zhongmu, covering the road to his base at Xu.',
+          },
+          places: ['guandu'],
+          arrows: [
+            { side: 'yuan', pts: [P.guandu_ye, [114.65, 36.08], [114.60, 35.85], P.guandu_liyang], dashed: true, label: { zh: '拟南下黎阳', en: 'Toward Liyang' } },
+            { side: 'cao', pts: [P.guandu_xu, [113.83, 34.27], [113.94, 34.51], P.guandu], label: { zh: '进屯官渡', en: 'Fortify Guandu' } },
+          ],
+          units: [
+            { side: 'yuan', at: [113.98, 36.27], label: { zh: '袁绍', en: 'Yuan Shao' } },
+            { side: 'cao', at: [113.42, 34.16], label: { zh: '曹操', en: 'Cao Cao' } },
+          ],
+        },
+        {
+          year: 200,
+          date: { zh: '建安五年 二月—四月', en: '200 CE · lunar months 2–4' },
+          title: { zh: '声西击东，曹军解白马', en: 'A feint relieves Baima' },
+          view: [113.94, 35.20, 114.83, 35.85],
+          text: {
+            zh: '袁绍进驻黎阳（今河南浚县），遣颜良等围攻白马（今河南滑县）。曹操采纳荀攸之计，先向延津佯作渡河，诱使袁绍分兵西应，随即率轻兵急趋白马。张辽、关羽为前锋，关羽斩颜良，袁军败退，白马之围遂解。',
+            en: 'Yuan Shao reaches Liyang and sends Yan Liang against Baima. Following Xun You’s plan, Cao Cao feints at Yanjin, then rushes east. Zhang Liao and Guan Yu lead the vanguard; Guan Yu kills Yan Liang and lifts the siege.',
+          },
+          places: ['guandu_yanjin', 'guandu_liyang'],
+          arrows: [
+            { side: 'yuan', pts: [P.guandu_liyang, [114.58, 35.64], P.guandu_baima] },
+            { side: 'cao', pts: [[114.13, 35.26], [114.22, 35.30], P.guandu_yanjin], dashed: true, label: { zh: '佯渡', en: 'Feint' } },
+            { side: 'cao', pts: [P.guandu_yanjin, [114.40, 35.42], [114.50, 35.51], P.guandu_baima], heavy: true },
+          ],
+          clashes: [{ at: P.guandu_baima, label: { zh: '白马解围', en: 'Baima relieved' } }],
+          units: [{ side: 'cao', at: [114.07, 35.51], label: { zh: '张辽 · 关羽', en: 'Zhang Liao · Guan Yu' } }],
+        },
+        {
+          year: 200,
+          date: { zh: '建安五年 四月', en: '200 CE · lunar month 4' },
+          title: { zh: '白马西撤，延津破追兵', en: 'Yuan’s pursuit fails at Yanjin' },
+          view: [113.94, 35.20, 114.83, 35.85],
+          text: {
+            zh: '曹操迁徙白马百姓，沿河向西撤往延津（今河南延津北一带）。袁绍渡河追击，文丑与刘备率骑兵趋前。曹操令军士解鞍休息，以道旁辎重诱使追兵争抢，乘其队形散乱纵骑反击，文丑战死。此战不采用演义中关羽斩文丑的说法。',
+            en: 'Cao Cao evacuates Baima westward. Wen Chou and Liu Bei pursue after Yuan’s crossing. Cao’s cavalry strikes while the pursuers scatter to seize baggage; Wen Chou dies. The historical record does not credit Guan Yu with killing him.',
+          },
+          places: ['guandu_baima'],
+          arrows: [
+            { side: 'cao', pts: [P.guandu_baima, [114.43, 35.52], [114.31, 35.44], [114.25, 35.33]], dashed: true, label: { zh: '迁民西撤', en: 'Evacuate west' } },
+            { side: 'yuan', pts: [[114.60, 35.58], [114.52, 35.43], [114.40, 35.34], P.guandu_yanjin] },
+            { side: 'cao', pts: [[114.14, 35.30], [114.23, 35.30], P.guandu_yanjin] },
+          ],
+          clashes: [{ at: P.guandu_yanjin, label: { zh: '延津 · 文丑战死', en: 'Yanjin · Wen Chou falls' } }],
+        },
+        {
+          year: 200,
+          date: { zh: '建安五年 八月', en: '200 CE · lunar month 8' },
+          title: { zh: '袁军进阳武，曹操守官渡', en: 'The armies converge on Guandu' },
+          view: [113.68, 34.57, 114.58, 35.40],
+          text: {
+            zh: '曹操退还官渡，袁绍进保阳武（今河南原阳一带），继而连营南逼。曹军出战不利，退入坚垒。袁军筑土山、起高橹向曹营射箭，又掘地道进攻；曹军以发石车和营内长堑应对。双方由机动作战转为营垒相持，粮食供应渐成胜负关键。',
+            en: 'Cao Cao returns to Guandu. Yuan advances through Yangwu and presses south. After an unsuccessful attack, Cao holds his ramparts, countering towers with stone throwers and tunnels with trenches. Supply becomes decisive.',
+          },
+          places: ['guandu_yangwu', 'guandu'],
+          arrows: [
+            { side: 'cao', pts: [[114.29, 35.29], [114.19, 35.09], [114.13, 34.89], [114.06, 34.82]], dashed: true },
+            { side: 'yuan', pts: [P.guandu_yanjin, [114.13, 35.17], P.guandu_yangwu, [113.98, 34.94]], heavy: true },
+          ],
+          forts: [
+            { side: 'cao', pts: FORT_GUANDU_CAO, face: 1 },
+            { side: 'yuan', pts: FORT_GUANDU_YUAN, face: -1 },
+          ],
+          units: [{ side: 'cao', at: [113.73, 34.69], label: { zh: '曹操', en: 'Cao Cao' } }],
+        },
+        {
+          year: 200,
+          date: { zh: '建安五年 九月', en: '200 CE · lunar month 9' },
+          title: { zh: '官渡久相持，奇兵袭粮道', en: 'Stalemate and a supply raid' },
+          view: [113.64, 34.57, 114.44, 35.22],
+          text: {
+            zh: '曹军在官渡粮少兵疲，曹操一度致书荀彧，商议退回许县，荀彧劝其坚守待变。荀攸得知袁军运粮车将至，建议遣徐晃、史涣截击，焚毁辎重。袁绍又令韩猛劫掠西道，曹仁将其击走，随后烧毁袁军粮运，双方继续争夺补给通道。',
+            en: 'Short of grain, Cao considers retreat, but Xun Yu urges him to hold. Xun You sends Xu Huang and Shi Huan against Yuan’s supply convoy. Cao Ren also defeats Han Meng on the western road and burns supplies.',
+          },
+          places: ['guandu'],
+          forts: [
+            { side: 'cao', pts: FORT_GUANDU_CAO, face: 1 },
+            { side: 'yuan', pts: FORT_GUANDU_YUAN, face: -1 },
+          ],
+          arrows: [
+            { side: 'yuan', pts: [[114.33, 35.17], [114.28, 35.08], [114.23, 34.98]], dashed: true, label: { zh: '袁军粮运', en: 'Supply convoy' } },
+            { side: 'cao', pts: [[114.08, 34.76], [114.20, 34.81], [114.30, 34.90], [114.27, 35.02]] },
+          ],
+          clashes: [{ at: [114.27, 35.02] }],
+          units: [{ side: 'cao', at: [113.82, 35.08], label: { zh: '徐晃 · 史涣', en: 'Xu Huang · Shi Huan' } }],
+        },
+        {
+          year: 200,
+          date: { zh: '建安五年 十月', en: '200 CE · lunar month 10' },
+          title: { zh: '许攸来奔，曹操夜袭乌巢', en: 'Cao raids the depot at Wuchao' },
+          view: [113.64, 34.57, 114.44, 35.22],
+          text: {
+            zh: '许攸自袁营投曹，建议袭击乌巢粮屯（今河南延津一带，确址有争议）。曹操留曹洪、荀攸守营，自率步骑五千夜出，至乌巢纵火急攻淳于琼。袁绍遣骑救粮屯，又命张郃、高览攻曹营；曹操击破乌巢守军，袁军粮秣被焚，攻营之军亦未得手。',
+            en: 'Defector Xu You reveals Yuan’s depot at Wuchao. Cao leaves Cao Hong and Xun You in camp and leads 5,000 men on a night raid. Yuan sends relief and attacks Cao’s camp with Zhang He and Gao Lan. Wuchao burns; the camp holds.',
+          },
+          places: ['guandu'],
+          forts: [
+            { side: 'cao', pts: FORT_GUANDU_CAO, face: 1 },
+            { side: 'yuan', pts: FORT_GUANDU_YUAN, face: -1 },
+          ],
+          arrows: [
+            { side: 'cao', pts: [[114.10, 34.76], [114.31, 34.86], [114.33, 35.03], P.guandu_wuchao], heavy: true },
+            { side: 'yuan', pts: [[113.99, 34.89], [114.00, 34.85], [114.00, 34.81]], blocked: true },
+            { side: 'yuan', pts: [[114.09, 34.92], [114.12, 35.01], [114.15, 35.07]], light: true },
+          ],
+          clashes: [{ at: P.guandu_wuchao, label: { zh: '乌巢焚粮', en: 'Wuchao burns' } }],
+          units: [
+            { side: 'cao', at: [113.85, 34.65], label: { zh: '曹洪 · 荀攸守营', en: 'Cao Hong · Xun You' } },
+            { side: 'cao', at: [113.84, 35.09], label: { zh: '曹操 · 步骑五千', en: 'Cao Cao · 5,000' } },
+          ],
+        },
+        {
+          year: 200,
+          date: { zh: '建安五年 十月以后', en: '200 CE · after lunar month 10' },
+          title: { zh: '张郃高览降，袁绍败北', en: 'Yuan’s army collapses' },
+          view: [113.67, 34.55, 114.86, 35.86],
+          text: {
+            zh: '乌巢败讯传来，张郃、高览率部降曹，袁军营中动摇，继而全线溃散。袁绍与袁谭弃军渡河北逃，曹军追击并收取辎重。官渡之胜扭转了袁强曹弱的局面，但河北尚未平定；曹操此后仍经历仓亭之战与多年征伐，才逐步消灭袁氏势力。',
+            en: 'After Wuchao falls, Zhang He and Gao Lan surrender. Yuan’s army collapses; Yuan Shao and Yuan Tan flee across the Yellow River. Guandu turns the balance toward Cao, but conquering Hebei still takes years.',
+          },
+          places: ['guandu', 'guandu_liyang'],
+          arrows: [
+            { side: 'yuan', pts: [[114.00, 34.92], [114.09, 35.13], [114.33, 35.37], P.guandu_liyang], dashed: true, label: { zh: '袁绍北逃', en: 'Yuan flees north' } },
+            { side: 'cao', pts: [P.guandu, [114.17, 34.96], [114.33, 35.16]], heavy: true },
+          ],
+          forts: [{ side: 'yuan', pts: FORT_GUANDU_YUAN, face: -1, lost: true }],
+          units: [{ side: 'cao', at: [113.72, 35.46], label: { zh: '曹军追击', en: 'Cao pursues' } }],
+        },
+      ],
+    },
     changping: {
       key: 'changping',
       zh: '长平之战',
@@ -278,6 +444,14 @@
   };
 
   const PLACE_NAMES = {
+    guandu: { zh: '官渡', en: 'Guandu' },
+    guandu_ye: { zh: '邺', en: 'Ye' },
+    guandu_xu: { zh: '许县', en: 'Xu' },
+    guandu_liyang: { zh: '黎阳', en: 'Liyang' },
+    guandu_baima: { zh: '白马', en: 'Baima' },
+    guandu_yanjin: { zh: '延津', en: 'Yanjin' },
+    guandu_yangwu: { zh: '阳武', en: 'Yangwu' },
+    guandu_wuchao: { zh: '乌巢', en: 'Wuchao' },
     xianyang: { zh: '咸阳', en: 'Xianyang' },
     hangu: { zh: '函谷关', en: 'Hangu Pass' },
     anyi: { zh: '安邑（河东）', en: 'Anyi (Hedong)' },

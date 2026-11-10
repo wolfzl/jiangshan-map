@@ -5724,6 +5724,7 @@ html.is-embed.is-embed-locked #scrubber-dock {
     max-height: 44%;
   }
 }
+#atlas-svg.is-campaign-deep .polity-caption,
 #atlas-svg.is-campaign-deep #grp-settlements,
 #atlas-svg.is-campaign-deep #grp-prov-names,
 #atlas-svg.is-campaign-deep #grp-corridors {
