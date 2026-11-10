@@ -5463,3 +5463,294 @@ html.is-embed.is-embed-locked #scrubber-dock {
     max-height: 55%;
   }
 }
+
+/* ---------------- Campaign playback (战役推演) ---------------- */
+#atlas-svg.is-campaign-mode #grp-milestones,
+#atlas-svg.is-campaign-mode #grp-journey {
+  display: none;
+}
+
+#grp-campaign {
+  pointer-events: none;
+}
+
+.cmp-arrow-body {
+  fill: currentColor;
+  fill-opacity: 0.9;
+  stroke: rgba(250, 246, 236, 0.95);
+  stroke-width: 1.6px;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+.cmp-arrow.is-dashed .cmp-arrow-body {
+  fill-opacity: 0.38;
+  stroke: currentColor;
+  stroke-width: 1.5px;
+  stroke-dasharray: 5 3;
+}
+.cmp-arrow.is-light .cmp-arrow-body {
+  fill-opacity: 0.75;
+}
+.cmp-block {
+  fill: none;
+  stroke: #2b2622;
+  stroke-width: 2.4px;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+}
+
+.cmp-fort .cmp-fort-halo {
+  fill: none;
+  stroke: rgba(250, 246, 236, 0.92);
+  stroke-width: 6px;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+}
+.cmp-fort .cmp-fort-line,
+.cmp-fort .cmp-fort-teeth {
+  fill: none;
+  stroke-width: 2.4px;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cmp-fort .cmp-fort-teeth { stroke-width: 1.8px; }
+.cmp-fort .cmp-fort-line,
+.cmp-fort .cmp-fort-teeth { stroke: currentColor; }
+.cmp-fort.is-lost .cmp-fort-line { stroke-dasharray: 4 4; }
+.cmp-fort.is-lost { opacity: 0.5; }
+.cmp-fort.is-dim { opacity: 0.45; }
+
+.cmp-area {
+  fill: currentColor;
+  fill-opacity: 0.2;
+  stroke: currentColor;
+  stroke-width: 1.4px;
+  vector-effect: non-scaling-stroke;
+}
+.cmp-ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2px;
+  stroke-dasharray: 7 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.cmp-cut {
+  fill: none;
+  stroke: #2b2622;
+  stroke-width: 2.4px;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+}
+
+.cmp-place-dot {
+  fill: #fbf7ee;
+  stroke: #2b2622;
+  stroke-width: 1.4px;
+  vector-effect: non-scaling-stroke;
+}
+
+.cmp-clash-bg {
+  fill: #fbf7ee;
+  stroke: #9e2a22;
+  stroke-width: 1.6px;
+  vector-effect: non-scaling-stroke;
+}
+.cmp-clash-x {
+  stroke: #9e2a22;
+  stroke-width: 2.6px;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+}
+
+.cmp-unit-box {
+  stroke: rgba(250, 246, 236, 0.95);
+  stroke-width: 1.4px;
+  vector-effect: non-scaling-stroke;
+}
+.cmp-unit .cmp-unit-box { fill: currentColor; }
+.cmp-unit-text {
+  fill: #fbf7ee;
+  font-family: var(--serif-stack);
+  font-size: 12px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.cmp-label {
+  font-family: var(--serif-stack);
+  font-weight: 600;
+  fill: #2b2622;
+  stroke: rgba(250, 246, 236, 0.94);
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+  dominant-baseline: middle;
+}
+.cmp-label.is-place { font-weight: 500; fill: #3d3630; }
+.cmp-label.is-note,
+.cmp-label.is-clash { fill: #9e2a22; font-weight: 700; }
+
+#campaign-card {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 9;
+  width: 340px;
+  max-height: calc(100% - 28px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 12px 14px 10px;
+  background: rgba(251, 247, 238, 0.97);
+  border: 1px solid rgba(181, 69, 47, 0.38);
+  border-radius: var(--corner-radius);
+  box-shadow: var(--card-shadow);
+  color: var(--text-main);
+  font-size: 13px;
+  line-height: 1.6;
+}
+#campaign-card .cmp-head { display: flex; align-items: center; gap: 8px; }
+#campaign-card .cmp-tag {
+  font-size: 11px;
+  color: #fbf7ee;
+  background: #9e2a22;
+  border-radius: 4px;
+  padding: 1px 6px;
+  letter-spacing: 0.06em;
+}
+#campaign-card .cmp-title {
+  margin: 0;
+  flex: 1;
+  font-family: var(--serif-stack);
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+#campaign-card .cmp-close {
+  border: 0;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 2px 4px;
+}
+#campaign-card .cmp-span { color: var(--text-muted); font-size: 12px; margin: 2px 0 8px; }
+#campaign-card .cmp-sides { display: grid; gap: 3px; margin-bottom: 10px; font-size: 12.5px; }
+#campaign-card .cmp-side { display: flex; align-items: center; gap: 6px; }
+#campaign-card .cmp-side span:last-child { color: var(--text-secondary); }
+#campaign-card .cmp-swatch { width: 18px; height: 7px; border-radius: 2px; flex: none; }
+#campaign-card .cmp-steps {
+  display: flex;
+  gap: 4px;
+  padding: 6px 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+#campaign-card .cmp-dot {
+  flex: 1;
+  height: 24px;
+  border: 1px solid var(--province-border);
+  border-radius: 5px;
+  background: #f3eee4;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+}
+#campaign-card .cmp-dot.is-done { background: #ebd9cf; border-color: #d4a99c; }
+#campaign-card .cmp-dot.is-active { background: #9e2a22; border-color: #9e2a22; color: #fbf7ee; font-weight: 700; }
+#campaign-card .cmp-body { padding: 8px 0 4px; }
+#campaign-card .cmp-date { color: #9e2a22; font-size: 12px; font-weight: 600; }
+#campaign-card .cmp-ph-title { margin: 2px 0 6px; font-family: var(--serif-stack); font-size: 16px; }
+#campaign-card .cmp-text { margin: 0 0 8px; }
+#campaign-card .cmp-quote {
+  margin: 0;
+  padding: 4px 0 4px 10px;
+  border-left: 3px solid rgba(158, 42, 34, 0.45);
+  color: var(--text-secondary);
+  font-family: var(--serif-stack);
+  font-size: 12.5px;
+}
+#campaign-card .cmp-ctrl { display: flex; gap: 6px; margin: 8px 0; }
+#campaign-card .cmp-ctrl button {
+  flex: 1;
+  height: 30px;
+  border: 1px solid var(--province-border);
+  border-radius: 6px;
+  background: #fbf7ee;
+  color: var(--text-main);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+#campaign-card .cmp-ctrl button:disabled { opacity: 0.4; cursor: default; }
+#campaign-card .cmp-ctrl .cmp-play { background: #2b2622; border-color: #2b2622; color: #fbf7ee; }
+#campaign-card .cmp-ctrl .cmp-play.is-playing { background: #9e2a22; border-color: #9e2a22; }
+#campaign-card .cmp-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+#campaign-card .cmp-legend i { display: inline-block; vertical-align: middle; margin-right: 4px; }
+#campaign-card .lg-arrow { width: 18px; height: 5px; background: #2b2622; clip-path: polygon(0 30%, 70% 0, 70% -60%, 100% 50%, 70% 160%, 70% 100%, 0 70%); }
+#campaign-card .lg-fort { width: 16px; height: 6px; border-bottom: 2px solid #b5452f; background: repeating-linear-gradient(90deg, transparent 0 3px, #b5452f 3px 4.5px) bottom / 100% 4px no-repeat; }
+#campaign-card .lg-ring { width: 14px; height: 9px; border: 1.5px dashed #2b2622; border-radius: 50%; background: rgba(181, 69, 47, 0.25); }
+#campaign-card .lg-clash { width: 10px; height: 10px; border: 1.5px solid #9e2a22; border-radius: 50%; }
+#campaign-card .cmp-src { margin-top: 6px; color: var(--text-muted); font-size: 11px; line-height: 1.45; }
+
+.ep-campaign {
+  margin-left: 6px;
+  border: 1px solid #9e2a22;
+  border-radius: 999px;
+  background: #9e2a22;
+  color: #fbf7ee;
+  font-size: 11.5px;
+  padding: 0 8px;
+  line-height: 19px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ep-campaign:hover { background: #7d1e17; }
+
+@media (max-width: 900px) {
+  #campaign-card {
+    top: auto;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-height: 44%;
+  }
+}
+#atlas-svg.is-campaign-deep #grp-settlements,
+#atlas-svg.is-campaign-deep #grp-prov-names,
+#atlas-svg.is-campaign-deep #grp-corridors {
+  display: none;
+}
+#atlas-svg.is-campaign-deep #grp-terrain {
+  opacity: 0.45;
+}
+#viewport-frame.has-campaign #map-key {
+  display: none !important;
+}
+#campaign-card .cmp-ctrl .cmp-play {
+  position: relative;
+  overflow: hidden;
+}
+#campaign-card .cmp-play-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: #e8c27a;
+}
+#campaign-card .cmp-play-bar.is-running {
+  animation: cmp-play-progress linear forwards;
+}
+@keyframes cmp-play-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}

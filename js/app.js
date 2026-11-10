@@ -11364,7 +11364,7 @@
         clientX !== undefined && clientY !== undefined
           ? this._clientToSvgPoint(clientX, clientY)
           : [this.camera.x + this.camera.w * 0.5, this.camera.y + this.camera.h * 0.5];
-      const nextW = Math.max(100, Math.min(1300, this.camera.w / factor));
+      const nextW = Math.max(this._minCameraW || 100, Math.min(1300, this.camera.w / factor));
       const k = nextW / this.camera.w;
       const targetCam = {
         x: mx - (mx - this.camera.x) * k,
@@ -13517,7 +13517,7 @@
             e.deltaMode === 1 ? e.deltaY * 18 : e.deltaMode === 2 ? e.deltaY * 240 : e.deltaY;
           const clampedDelta = Math.max(-220, Math.min(220, rawDelta || 0));
           const factor = Math.exp(-clampedDelta * 0.002);
-          const nextW = Math.max(100, Math.min(1300, this.camera.w / factor));
+          const nextW = Math.max(this._minCameraW || 100, Math.min(1300, this.camera.w / factor));
           const k = nextW / this.camera.w;
           this.camera = {
             x: mx - (mx - this.camera.x) * k,
@@ -13619,7 +13619,7 @@
           const pts = Array.from(this.activePointers.values());
           const dist = Math.max(10, Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y));
           const factor = dist / this.pinchState.startDist;
-          const nextW = Math.max(100, Math.min(1300, this.pinchState.camW / factor));
+          const nextW = Math.max(this._minCameraW || 100, Math.min(1300, this.pinchState.camW / factor));
           const k = nextW / this.pinchState.camW;
           const midX = (pts[0].x + pts[1].x) * 0.5;
           const midY = (pts[0].y + pts[1].y) * 0.5;

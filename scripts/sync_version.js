@@ -20,6 +20,7 @@ const ROOT = path.resolve(__dirname, '..');
 const CONTROLLER_SCRIPTS = [
   'js/app.js',
   'js/atlas_quiz.js',
+  'js/atlas_campaigns.js',
 ];
 
 const STATIC_TAG_ASSETS = [
