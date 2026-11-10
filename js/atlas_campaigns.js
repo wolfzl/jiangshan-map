@@ -74,8 +74,8 @@
         { id: 'cao', tone: 'cinnabar', zh: '曹军', en: 'Cao', lead: { zh: '曹操 · 荀攸、曹仁、徐晃', en: 'Cao Cao · Xun You, Xu Huang' } },
       ],
       source: {
-        zh: '据《三国志·武帝纪》《袁绍传》《荀攸传》《张郃传》示意复原。兵力记载有异，不列双方总数；古黄河渡口、乌巢与行军路线均为近似，月份为农历。',
-        en: 'Schematic after Sanguozhi (Cao Cao, Yuan Shao, Xun You, Zhang He). Army totals disputed; crossings, Wuchao and routes approximate. Months are lunar.',
+        zh: '据《三国志》陈寿正文（《武帝纪》及袁绍、曹仁、荀彧、荀攸、张郃、徐晃、关羽等传）示意复原，裴注异说另行标明。兵力记载有异，不列总数；渡口、乌巢与路线均为近似，月份为农历。',
+        en: 'Schematic after the Sanguozhi main text (annals of Cao Cao; lives of Yuan Shao, Cao Ren, Xun Yu, Xun You, Zhang He, Xu Huang, Guan Yu). Army totals disputed; crossings, Wuchao and routes approximate. Months are lunar.',
       },
       phases: [
         {
@@ -84,9 +84,11 @@
           title: { zh: '袁绍谋南下，曹操备官渡', en: 'Yuan prepares to march south' },
           view: [113.25, 33.70, 115.15, 36.65],
           text: {
-            zh: '袁绍击灭公孙瓒，控制河北，准备南下与曹操决战。曹操以许县（今河南许昌）为后方，遣军扼守黄河南岸，并在官渡（今河南中牟东北）构筑营垒。官渡扼住通往许县的要道，曹军可在此集中兵力，等待袁军远道而来。',
-            en: 'After defeating Gongsun Zan, Yuan Shao prepares to move south from Hebei. Cao Cao guards the southern crossings and fortifies Guandu, northeast of modern Zhongmu, covering the road to his base at Xu.',
+            zh: '袁绍击灭公孙瓒，控制河北，准备南下与曹操决战。曹操以许县（今河南许昌）为后方，八月进军黎阳，留于禁屯驻河上；九月回许，分兵守官渡（今河南中牟东北），十二月亲自进驻，扼住通往许县的要道。',
+            en: 'After defeating Gongsun Zan, Yuan Shao prepares to move south from Hebei. Cao Cao leaves Yu Jin on the river, garrisons Guandu, northeast of modern Zhongmu, and moves there himself in winter, covering the road to his base at Xu.',
           },
+          // 《武帝纪》v001-b0043
+          quote: '“是时袁绍既并公孙瓒，兼四州之地，众十余万，将进军攻许……九月，公还许，分兵守官渡。”',
           places: ['guandu'],
           arrows: [
             { side: 'yuan', pts: [P.guandu_ye, [114.65, 36.08], [114.60, 35.85], P.guandu_liyang], dashed: true, label: { zh: '拟南下黎阳', en: 'Toward Liyang' } },
@@ -106,6 +108,8 @@
             zh: '袁绍进驻黎阳（今河南浚县），遣颜良等围攻白马（今河南滑县）。曹操采纳荀攸之计，先向延津佯作渡河，诱使袁绍分兵西应，随即率轻兵急趋白马。张辽、关羽为前锋，关羽斩颜良，袁军败退，白马之围遂解。',
             en: 'Yuan Shao reaches Liyang and sends Yan Liang against Baima. Following Xun You’s plan, Cao Cao feints at Yanjin, then rushes east. Zhang Liao and Guan Yu lead the vanguard; Guan Yu kills Yan Liang and lifts the siege.',
           },
+          // 《武帝纪》v001-b0047，荀攸语
+          quote: '“公到延津，若将渡兵向其后者，绍必西应之，然后轻兵袭白马，掩其不备，颜良可禽也。”',
           places: ['guandu_yanjin', 'guandu_liyang'],
           arrows: [
             { side: 'yuan', pts: [P.guandu_liyang, [114.58, 35.64], P.guandu_baima] },
@@ -121,9 +125,11 @@
           title: { zh: '白马西撤，延津破追兵', en: 'Yuan’s pursuit fails at Yanjin' },
           view: [113.94, 35.20, 114.83, 35.85],
           text: {
-            zh: '曹操迁徙白马百姓，沿河向西撤往延津（今河南延津北一带）。袁绍渡河追击，文丑与刘备率骑兵趋前。曹操令军士解鞍休息，以道旁辎重诱使追兵争抢，乘其队形散乱纵骑反击，文丑战死。此战不采用演义中关羽斩文丑的说法。',
+            zh: '曹操迁白马百姓沿河西撤，袁绍渡河追至延津（今河南延津北一带）南，文丑、刘备率骑兵趋前。曹操令骑兵解鞍放马，以辎重诱敌，乘追兵争抢、队形散乱纵骑反击，文丑战死（非演义所说关羽所斩）。',
             en: 'Cao Cao evacuates Baima westward. Wen Chou and Liu Bei pursue after Yuan’s crossing. Cao’s cavalry strikes while the pursuers scatter to seize baggage; Wen Chou dies. The historical record does not credit Guan Yu with killing him.',
           },
+          // 《武帝纪》v001-b0047
+          quote: '“有顷，骑至稍多，或分趣辎重。公曰：‘可矣。’乃皆上马……遂纵兵击，大破之，斩丑。”',
           places: ['guandu_baima'],
           arrows: [
             { side: 'cao', pts: [P.guandu_baima, [114.43, 35.52], [114.31, 35.44], [114.25, 35.33]], dashed: true, label: { zh: '迁民西撤', en: 'Evacuate west' } },
@@ -134,13 +140,15 @@
         },
         {
           year: 200,
-          date: { zh: '建安五年 八月', en: '200 CE · lunar month 8' },
+          date: { zh: '建安五年 四月后—八月', en: '200 CE · lunar months 4–8' },
           title: { zh: '袁军进阳武，曹操守官渡', en: 'The armies converge on Guandu' },
           view: [113.68, 34.57, 114.58, 35.40],
           text: {
-            zh: '曹操退还官渡，袁绍进保阳武（今河南原阳一带），继而连营南逼。曹军出战不利，退入坚垒。袁军筑土山、起高橹向曹营射箭，又掘地道进攻；曹军以发石车和营内长堑应对。双方由机动作战转为营垒相持，粮食供应渐成胜负关键。',
-            en: 'Cao Cao returns to Guandu. Yuan advances through Yangwu and presses south. After an unsuccessful attack, Cao holds his ramparts, countering towers with stone throwers and tunnels with trenches. Supply becomes decisive.',
+            zh: '延津战后，曹操还军官渡，袁绍进保阳武（今河南原阳一带）。八月，袁军连营渐进，逼近官渡，曹军出战不利，退回营垒。袁军筑土山、起高橹射营，又掘地道；曹军以发石车、长堑应对，战事转为营垒相持。',
+            en: 'After Yanjin, Cao Cao returns to Guandu and Yuan holds Yangwu. In month 8 Yuan’s linked camps press south. After an unsuccessful attack, Cao holds his ramparts, countering towers with stone throwers and tunnels with trenches. Supply becomes decisive.',
           },
+          // 《袁绍传》v006-b0026
+          quote: '“绍为高橹，起土山，射营中……太祖乃为发石车，击绍楼，皆破，绍众号曰霹雳车。”',
           places: ['guandu_yangwu', 'guandu'],
           arrows: [
             { side: 'cao', pts: [[114.29, 35.29], [114.19, 35.09], [114.13, 34.89], [114.06, 34.82]], dashed: true },
@@ -154,13 +162,15 @@
         },
         {
           year: 200,
-          date: { zh: '建安五年 九月', en: '200 CE · lunar month 9' },
+          date: { zh: '建安五年 八月后相持', en: '200 CE · stalemate after month 8' },
           title: { zh: '官渡久相持，奇兵袭粮道', en: 'Stalemate and a supply raid' },
           view: [113.64, 34.57, 114.44, 35.22],
           text: {
-            zh: '曹军在官渡粮少兵疲，曹操一度致书荀彧，商议退回许县，荀彧劝其坚守待变。荀攸得知袁军运粮车将至，建议遣徐晃、史涣截击，焚毁辎重。袁绍又令韩猛劫掠西道，曹仁将其击走，随后烧毁袁军粮运，双方继续争夺补给通道。',
-            en: 'Short of grain, Cao considers retreat, but Xun Yu urges him to hold. Xun You sends Xu Huang and Shi Huan against Yuan’s supply convoy. Cao Ren also defeats Han Meng on the western road and burns supplies.',
+            zh: '曹军粮少兵疲，曹操一度致书荀彧，商议退回许县，荀彧劝其坚守待变。荀攸指出押运粮车的韩猛轻敌，遣徐晃、史涣截击，烧毁辎重。袁绍别将韩荀抄断西道，曹仁在鸡洛山将其大破，袁绍此后不敢再分兵出击。',
+            en: 'Short of grain, Cao considers retreat, but Xun Yu urges him to hold. Xun You sends Xu Huang and Shi Huan against Han Meng’s supply convoy. On the western road Cao Ren routs another Yuan officer, Han Xun, at Mount Jiluo.',
           },
+          // 《荀彧传》v010-b0018
+          quote: '“扼其喉而不得进，已半年矣。情见势竭，必将有变，此用奇之时，不可失也。”',
           places: ['guandu'],
           forts: [
             { side: 'cao', pts: FORT_GUANDU_CAO, face: 1 },
@@ -179,9 +189,11 @@
           title: { zh: '许攸来奔，曹操夜袭乌巢', en: 'Cao raids the depot at Wuchao' },
           view: [113.64, 34.57, 114.44, 35.22],
           text: {
-            zh: '许攸自袁营投曹，建议袭击乌巢粮屯（今河南延津一带，确址有争议）。曹操留曹洪、荀攸守营，自率步骑五千夜出，至乌巢纵火急攻淳于琼。袁绍遣骑救粮屯，又命张郃、高览攻曹营；曹操击破乌巢守军，袁军粮秣被焚，攻营之军亦未得手。',
-            en: 'Defector Xu You reveals Yuan’s depot at Wuchao. Cao leaves Cao Hong and Xun You in camp and leads 5,000 men on a night raid. Yuan sends relief and attacks Cao’s camp with Zhang He and Gao Lan. Wuchao burns; the camp holds.',
+            zh: '许攸自袁营投曹，建议袭击乌巢粮屯（今河南延津一带，确址有争议）。曹操留曹洪、荀攸守营，自率步骑五千夜出，天明急攻淳于琼，斩之；张郃、高览攻曹营未下。裴注引《曹瞒传》称曹军纵火焚粮。',
+            en: 'Defector Xu You reveals Yuan’s depot at Wuchao. Cao leaves Cao Hong and Xun You in camp and leads 5,000 men on a night march, attacking at dawn. Yuan sends relief and attacks Cao’s camp with Zhang He and Gao Lan. Chunyu Qiong is killed; the camp holds.',
           },
+          // 《武帝纪》v001-b0051
+          quote: '“公乃留曹洪守，自将步骑五千人夜往，会明至……士卒皆殊死战，大破琼等，皆斩之。”',
           places: ['guandu'],
           forts: [
             { side: 'cao', pts: FORT_GUANDU_CAO, face: 1 },
@@ -192,7 +204,7 @@
             { side: 'yuan', pts: [[113.99, 34.89], [114.00, 34.85], [114.00, 34.81]], blocked: true },
             { side: 'yuan', pts: [[114.09, 34.92], [114.12, 35.01], [114.15, 35.07]], light: true },
           ],
-          clashes: [{ at: P.guandu_wuchao, label: { zh: '乌巢焚粮', en: 'Wuchao burns' } }],
+          clashes: [{ at: P.guandu_wuchao, label: { zh: '乌巢破琼', en: 'Wuchao falls' } }],
           units: [
             { side: 'cao', at: [113.85, 34.65], label: { zh: '曹洪 · 荀攸守营', en: 'Cao Hong · Xun You' } },
             { side: 'cao', at: [113.84, 35.09], label: { zh: '曹操 · 步骑五千', en: 'Cao Cao · 5,000' } },
@@ -207,6 +219,8 @@
             zh: '乌巢败讯传来，张郃、高览率部降曹，袁军营中动摇，继而全线溃散。袁绍与袁谭弃军渡河北逃，曹军追击并收取辎重。官渡之胜扭转了袁强曹弱的局面，但河北尚未平定；曹操此后仍经历仓亭之战与多年征伐，才逐步消灭袁氏势力。',
             en: 'After Wuchao falls, Zhang He and Gao Lan surrender. Yuan’s army collapses; Yuan Shao and Yuan Tan flee across the Yellow River. Guandu turns the balance toward Cao, but conquering Hebei still takes years.',
           },
+          // 《武帝纪》v001-b0051
+          quote: '“郃等闻琼破，遂来降。绍众大溃，绍及谭弃军走，渡河。”',
           places: ['guandu', 'guandu_liyang'],
           arrows: [
             { side: 'yuan', pts: [[114.00, 34.92], [114.09, 35.13], [114.33, 35.37], P.guandu_liyang], dashed: true, label: { zh: '袁绍北逃', en: 'Yuan flees north' } },
