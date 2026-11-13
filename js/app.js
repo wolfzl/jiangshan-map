@@ -425,6 +425,8 @@
       this.activeTrace = null;
       this.activePerson = null;
       this.activePersonEventIdx = -1;
+      // Last stop of a highlighted stop range (?stop=3-4), or -1 for a single stop.
+      this.activePersonRangeEnd = -1;
       this.activeReturnPerson = null;
       this.personTimer = null;
       this._lastPersonPinZoom = 0;
@@ -1417,7 +1419,14 @@
       const personKeys = person && Array.isArray(person.profiles) ? person.profiles.map((pr) => String(pr.key || '')) : [];
       if (personKeys.length && personKeys.every((k) => k && !k.startsWith('adhoc_'))) {
         p.set('person', personKeys.join(','));
-        if (this.activePersonEventIdx >= 0) p.set('stop', String(this.activePersonEventIdx));
+        if (this.activePersonEventIdx >= 0) {
+          p.set(
+            'stop',
+            this.activePersonRangeEnd > this.activePersonEventIdx
+              ? `${this.activePersonEventIdx}-${this.activePersonRangeEnd}`
+              : String(this.activePersonEventIdx)
+          );
+        }
       } else {
         // A place card can stay open on top of a regime profile, so both are restorable together.
         if (this.activePolity && this.activePolity.curated && this.activePolity.key) {
@@ -5731,6 +5740,7 @@
       if (!this.activePerson) return;
       this.activePerson = null;
       this.activePersonEventIdx = -1;
+      this.activePersonRangeEnd = -1;
       this._scheduleUrlSync();
       if (this.embed) this._syncEmbedBadge();
       this._hidePersonFooter();
@@ -6566,7 +6576,16 @@
       };
     }
 
-    openPersonChronicle(personOrQuery, initialIdx = -1) {
+    // `stop` is a 0-based stop index, or a range "3-4" that highlights every leg of stops 3..4.
+    _parsePersonStop(raw) {
+      const m = /^\s*(\d+)\s*(?:-\s*(\d+))?\s*$/.exec(raw == null ? '' : String(raw));
+      if (!m) return [-1, -1];
+      const start = Number(m[1]);
+      const end = m[2] === undefined ? -1 : Number(m[2]);
+      return [start, end > start ? end : -1];
+    }
+
+    openPersonChronicle(personOrQuery, initialIdx = -1, rangeEnd = -1) {
       const profiles = this._resolvePersonProfiles(personOrQuery);
       if (!profiles.length) return false;
       const state = this._buildPersonTracksAndEvents(profiles);
@@ -6623,6 +6642,10 @@
       this.activePerson = state;
       this.activePersonEventIdx =
         initialIdx >= 0 && initialIdx < events.length ? initialIdx : -1;
+      this.activePersonRangeEnd =
+        this.activePersonEventIdx >= 0 && rangeEnd > this.activePersonEventIdx
+          ? Math.min(events.length - 1, rangeEnd)
+          : -1;
       this._scheduleUrlSync();
 
       const cardEl = this._id('genealogy-card');
@@ -6646,7 +6669,11 @@
       this._renderPersonChronicleCard();
       this._syncDocumentSeoMeta();
 
-      if (this.activePersonEventIdx >= 0) {
+      if (this.activePersonRangeEnd >= 0) {
+        // Frame the whole highlighted range, including the leg that arrives at its first stop.
+        const from = Math.max(0, this.activePersonEventIdx - 1);
+        this._framePersonOverview(events.slice(from, this.activePersonRangeEnd + 1));
+      } else if (this.activePersonEventIdx >= 0) {
         this._flyToPersonEvent(events[this.activePersonEventIdx]);
       } else {
         this._framePersonOverview();
@@ -6700,6 +6727,7 @@
 
     selectPersonEvent(idx, panCamera = true) {
       if (!this.activePerson || !this.activePerson.events.length) return;
+      this.activePersonRangeEnd = -1;
       this._scheduleUrlSync();
       const events = this.activePerson.events;
       if (idx < 0) {
@@ -6815,9 +6843,15 @@
       });
     }
 
-    _framePersonOverview() {
+    _isPersonRowCurrent(idx) {
+      const cur = this.activePersonEventIdx;
+      if (cur < 0) return false;
+      return idx === cur || (this.activePersonRangeEnd > cur && idx > cur && idx <= this.activePersonRangeEnd);
+    }
+
+    _framePersonOverview(subset = null) {
       if (!this.activePerson || !this.activePerson.events.length) return;
-      const evList = this.activePerson.events;
+      const evList = subset && subset.length ? subset : this.activePerson.events;
       let minX = Infinity;
       let minY = Infinity;
       let maxX = -Infinity;
@@ -6915,6 +6949,9 @@
       const { events, tracks, isMulti } = this.activePerson;
       const curIdx = this.activePersonEventIdx;
       const curEv = curIdx >= 0 ? events[curIdx] : null;
+      const rangeEnd =
+        !isMulti && curIdx >= 0 && this.activePersonRangeEnd > curIdx ? this.activePersonRangeEnd : -1;
+      const inRange = (idx) => idx === curIdx || (rangeEnd >= 0 && idx > curIdx && idx <= rangeEnd);
       const allTracks =
         Array.isArray(tracks) && tracks.length
           ? tracks
@@ -7048,7 +7085,7 @@
             trCurIdx = curEv.personStepIdx !== undefined ? curEv.personStepIdx : curIdx;
           }
         }
-        this._renderCartographicTrajectory(segments, trCurIdx, tr.color || '#bd2d22', dimmed);
+        this._renderCartographicTrajectory(segments, trCurIdx, tr.color || '#bd2d22', dimmed, rangeEnd);
       }
 
       // Deduplicate city labels so repeated visits to the same city only print its name once
@@ -7102,7 +7139,7 @@
         if (isMulti && !cl.isMultiCanonical) continue;
         const ev = events[idx];
         const [sx, sy] = rawPts[idx];
-        const isCur = idx === curIdx;
+        const isCur = inRange(idx);
         const isShared = Boolean(
           ev.isSharedEncounter && Array.isArray(ev.participants) && ev.participants.length >= 2
         );
@@ -7283,9 +7320,9 @@
         let activeLi = null;
         Array.from(listEl.children).forEach((li) => {
           const rowIdx = Number(li.dataset.evIdx);
-          const isCur = rowIdx === curIdx;
+          const isCur = this._isPersonRowCurrent(rowIdx);
           li.classList.toggle('is-current', isCur);
-          if (isCur) activeLi = li;
+          if (rowIdx === curIdx) activeLi = li;
         });
         if (activeLi && typeof activeLi.scrollIntoView === 'function') {
           if (this._personScrollRaf) cancelAnimationFrame(this._personScrollRaf);
@@ -7440,7 +7477,7 @@
         const isShared = Boolean(ev.isSharedEncounter);
         const li = document.createElement('li');
         const intersectRowCls = isShared ? ' is-intersect-row' : '';
-        li.className = `person-ev-row${idx === curIdx ? ' is-current' : ''}${intersectRowCls}`;
+        li.className = `person-ev-row${this._isPersonRowCurrent(idx) ? ' is-current' : ''}${intersectRowCls}`;
         li.dataset.evIdx = String(idx);
         if (idx === curIdx) activeLi = li;
         if (isShared && !firstSharedLi) firstSharedLi = li;
@@ -11510,7 +11547,7 @@
       return { d, mx, my, angleDeg, chord };
     }
 
-    _renderCartographicTrajectory(segments, curIdx, accentColor = '#bd2d22', dimmed = false) {
+    _renderCartographicTrajectory(segments, curIdx, accentColor = '#bd2d22', dimmed = false, rangeEnd = -1) {
       if (!this.grpJourney || !Array.isArray(segments) || !segments.length) return;
       const applyDim = (el) => {
         if (dimmed && el && el.style) el.style.opacity = '0.32';
@@ -11556,10 +11593,12 @@
         return;
       }
 
+      // A stop range keeps every leg from the arrival at its first stop to its last stop in focus.
+      const lastIdx = rangeEnd > curIdx ? rangeEnd : curIdx;
       const passedSegs = segments.filter((s) => s.toIdx < curIdx);
       const passedD = passedSegs.map((s) => s.d).join(' ');
-      const focusSeg = segments.find((s) => s.toIdx === curIdx) || null;
-      const upcomingD = segments.filter((s) => s.toIdx > curIdx).map((s) => s.d).join(' ');
+      const focusSegs = segments.filter((s) => s.toIdx >= curIdx && s.toIdx <= lastIdx);
+      const upcomingD = segments.filter((s) => s.toIdx > lastIdx).map((s) => s.d).join(' ');
       const bgD = [passedD, upcomingD].filter(Boolean).join(' ');
       if (bgD) {
         this._svgNode('path', { d: bgD, class: 'journey-track-halo' }, this.grpJourney);
@@ -11585,18 +11624,15 @@
           appendChevron(seg, 'is-muted');
         }
       }
-      if (focusSeg) {
+      if (focusSegs.length) {
+        const focusD = focusSegs.map((s) => s.d).join(' ');
+        this._svgNode('path', { d: focusD, class: 'journey-track-halo is-focus' }, this.grpJourney);
         this._svgNode(
           'path',
-          { d: focusSeg.d, class: 'journey-track-halo is-focus' },
+          { d: focusD, class: 'journey-track-focus', stroke: accentColor },
           this.grpJourney
         );
-        this._svgNode(
-          'path',
-          { d: focusSeg.d, class: 'journey-track-focus', stroke: accentColor },
-          this.grpJourney
-        );
-        appendChevron(focusSeg, 'is-focus');
+        for (const seg of focusSegs) appendChevron(seg, 'is-focus');
       }
     }
 
@@ -13374,11 +13410,8 @@
             e.preventDefault();
             this._clearQuickSearchInput();
             if (u.searchParams.has('person')) {
-              const st = u.searchParams.has('stop') ? Number(u.searchParams.get('stop')) : -1;
-              this.openPersonChronicle(
-                u.searchParams.get('person'),
-                Number.isNaN(st) ? -1 : st
-              );
+              const [st, stEnd] = this._parsePersonStop(u.searchParams.get('stop'));
+              this.openPersonChronicle(u.searchParams.get('person'), st, stEnd);
               return;
             }
             if (u.searchParams.has('journey')) {
@@ -15732,7 +15765,7 @@
               lat: q.has('lat') ? Number(q.get('lat')) : undefined,
               zoom: q.has('zoom') ? Number(q.get('zoom')) : undefined,
               person: q.get('person') || q.get('journey') || undefined,
-              stop: q.has('stop') ? Number(q.get('stop')) : undefined,
+              stop: q.has('stop') ? this._parsePersonStop(q.get('stop'))[0] : undefined,
             })
           );
         }, 40);
@@ -15823,10 +15856,10 @@
       }
       if (q.has('person')) {
         const rawP = (q.get('person') || '').trim();
-        const evIdx = q.has('stop') ? Number(q.get('stop')) : -1;
+        const [evIdx, evEnd] = this._parsePersonStop(q.get('stop'));
         if (rawP) {
           afterFullSnapshots(() => {
-            this.openPersonChronicle(rawP, Number.isNaN(evIdx) ? -1 : evIdx);
+            this.openPersonChronicle(rawP, evIdx, evEnd);
           }, 80);
         }
       }

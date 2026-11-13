@@ -145,6 +145,7 @@ The embedded map hides the site chrome and keeps only the map, a compact timelin
 | `from=1072&to=1126` | Limit the timeline to this range; the timeline zooms to show only it |
 | `lock=1` | Freeze the map at `year` and hide the timeline |
 | `autoplay=1` | Play a person's trajectory stop by stop (with `person`), or play the timeline |
+| `stop=3-4` | With `person`, highlight stops 3 through 4 (0-based) together with the leg arriving at stop 3, e.g. one phase of a life; a single number highlights one stop |
 
 WeChat Official Accounts, Zhihu, and Xiaohongshu do not allow iframes; share the plain link there instead.
 
