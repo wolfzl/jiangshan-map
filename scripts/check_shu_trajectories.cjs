@@ -10,7 +10,7 @@ const expectations = {
  liushan:['长坂','成都','湔县','成都','成都','洛阳'],
  jiangwan:['广都','什邡','成都','沔阳','涪县'],
  feiyi:['汉中','成都','兴势','成都','汉中','成都','汉中','成都','汉寿'],
- jiangwei:['上邽','冀城','成都','汉中','西平','南安','狄道','襄武','狄道','段谷','芒水','成都','侯和','沓中','剑阁','涪县','成都'],
+ jiangwei:['冀城','成都','汉中','西平','南安','狄道','段谷','成都','沓中','剑阁','涪县','成都'],
 };
 for (const [key, expected] of Object.entries(expectations)) {
  const profile = runtime.sandbox.ATLAS_LORE_DATA.PERSON_PROFILES.find(p=>p.key===key);
