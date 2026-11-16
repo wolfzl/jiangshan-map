@@ -6113,6 +6113,8 @@
             src: 'J',
             year: st.year,
             month: st.month || 6 + sIdx * 0.01,
+            dateLabelZh: st.dateLabelZh || '',
+            dateLabelEn: st.dateLabelEn || '',
             coord: st.coord,
             fromCoord: st.fromCoord || null,
             via: st.via || null,
@@ -6133,7 +6135,9 @@
           });
         });
       }
-      if (isMulti && !profile.isRelic) {
+      // A sourced personal itinerary must not acquire trips merely because another
+      // person's event mentions this figure (including in comparison mode).
+      if (isMulti && !profile.isRelic && !profile.curatedOnly) {
         for (const j of HistoricalAtlasController.HISTORICAL_JOURNEYS) {
           if (j.key === profile.key || j.key === profile.journeyKey) continue;
           (j.stops || []).forEach((st, sIdx) => {
@@ -6163,7 +6167,7 @@
         }
       }
 
-      for (const d of this.dynasties) {
+      for (const d of profile.curatedOnly ? [] : this.dynasties) {
         for (const m of d.milestones || []) {
           if (!m.coord || m.year < minY - 2 || m.year > maxY + 3) continue;
           const byTag = matchesPersonsTag(m);
@@ -6229,7 +6233,7 @@
         }
       }
 
-      for (const lm of HistoricalAtlasController.PLACE_LANDMARK_EVENTS) {
+      for (const lm of profile.curatedOnly ? [] : HistoricalAtlasController.PLACE_LANDMARK_EVENTS) {
         if (!lm.coord || !lm.zh || lm.year < minY - 2 || lm.year > maxY + 3) continue;
         const byTag = matchesPersonsTag(lm);
         const byToken = tokens.some((tok) => lm.zh.includes(tok));
@@ -7394,7 +7398,9 @@
             });
           });
         } else {
-          const spanStr = this._formatPersonSpan(profile.span, isAdhoc);
+          const spanStr = profile.curatedOnly
+            ? (isEn ? ' · Recorded itinerary' : ' · 已知行迹')
+            : this._formatPersonSpan(profile.span, isAdhoc);
           headingEl.textContent = `${isEn ? profile.en : profile.zh}${spanStr}`;
         }
       }
@@ -7483,8 +7489,8 @@
         if (isShared && !firstSharedLi) firstSharedLi = li;
 
         const yrStr = isEn
-          ? this.formatYear(ev.year)
-          : `${ev.year <= 0 ? '前' + -ev.year : ev.year}年`;
+          ? ev.dateLabelEn || this.formatYear(ev.year)
+          : ev.dateLabelZh || `${ev.year <= 0 ? '前' + -ev.year : ev.year}年`;
         const siteLabel = isEn
           ? ev.siteEn || this.trTerm(ev.siteZh)
           : ev.siteZh + (ev.modernZh && !ev.siteZh.includes(ev.modernZh) ? `（今${ev.modernZh}）` : '');
