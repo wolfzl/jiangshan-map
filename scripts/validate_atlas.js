@@ -3854,12 +3854,14 @@ function main() {
         `Expected top quick-search hit for "${query}" to be person "${expectedKey}", got ${JSON.stringify(hits[0])}`
       );
     }
-    // Verify Deng Ai keeps both Yinping & Chengdu in 263 CE in causal order, and Zhao Kuangyin keeps both 960 & 961 without duplicate 960
+    // Verify Deng Ai keeps Yinping before Chengdu in 263 CE, allowing sourced intermediate stops; Zhao Kuangyin keeps both 960 & 961.
     const dengEvs = ctrl._collectPersonEvents(loreData.PERSON_PROFILES.find((p) => p.key === 'dengai'));
     const deng263 = dengEvs.filter((e) => e.year === 263);
+    const dengYinping = deng263.findIndex((e) => e.siteZh.includes('阴平'));
+    const dengChengdu = deng263.findIndex((e) => e.siteZh.includes('成都'));
     assert(
-      deng263.length === 2 && deng263[0].siteZh.includes('阴平') && deng263[1].siteZh.includes('成都'),
-      `Expected Deng Ai to have 2 distinct 263 CE campaign events ordered (Yinping -> Chengdu), got ${JSON.stringify(deng263.map((e) => e.siteZh))}`
+      dengYinping >= 0 && dengChengdu > dengYinping,
+      `Expected Deng Ai's 263 CE campaign to reach Yinping before Chengdu, got ${JSON.stringify(deng263.map((e) => e.siteZh))}`
     );
     const guan219 = ctrl
       ._collectPersonEvents(loreData.PERSON_PROFILES.find((p) => p.key === 'guanyu'))
