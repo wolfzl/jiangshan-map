@@ -3787,13 +3787,21 @@ function main() {
     const sparseProfiles = [];
     for (const p of loreData.PERSON_PROFILES) {
       const evs = getCachedPersonEvents(p);
-      if (evs.length < 3) {
+      // A source-led itinerary may contain only one or two known places.
+      // Keep the density check for inferred public-event routes; never invent
+      // personal journeys merely to reach three stops.
+      const sourcedSparseRoute = p.curatedOnly && evs.length > 0
+        && Array.isArray(p.stops) && p.stops.length === evs.length
+        && p.stops.every((s) => Array.isArray(s.sourceRefs) && s.sourceRefs.length > 0
+          && s.sourceRefs.every((r) => /^v\d{3}-b\d{4}(?:-n\d+)?$/.test(r.blockId || '')
+            && typeof r.quote === 'string' && r.quote.length > 0));
+      if (evs.length < 3 && !sourcedSparseRoute) {
         sparseProfiles.push(`${p.key} (${p.zh}): ${evs.length} -> ${evs.map((e) => e.year + '@' + e.siteZh).join(' | ')}`);
       }
     }
     assert(
       sparseProfiles.length === 0,
-      `Person profiles with <3 geo-dated events:\n${sparseProfiles.join('\n')}`
+      `Person profiles with <3 geo-dated events and no sourced itinerary:\n${sparseProfiles.join('\n')}`
     );
     for (const p of loreData.PERSON_PROFILES) {
       const evs = getCachedPersonEvents(p);
