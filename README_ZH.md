@@ -5,7 +5,7 @@
 </p>
 
 > [!NOTE]
-> **这是一个分支（fork）。** 由 [wolfzl](https://github.com/wolfzl) 维护，作为[三国志 · 人物与事件](https://wolfzl.github.io/)阅读网站的地图后端，部署在 <https://wolfzl.github.io/jiangshan-map/>。官方项目是 [DeanChensj/jiangshan-map](https://github.com/DeanChensj/jiangshan-map)，官方网站是 <https://deanchen.me/jiangshan-map/>，一般问题请到官方仓库反馈。
+> **这是一个分支（fork）。** 由 [wolfzl](https://github.com/wolfzl) 维护，作为[三国志 · 人物与事件](https://wolfzl.github.io/sanguozhi/)阅读网站的地图后端，部署在 <https://wolfzl.github.io/jiangshan-map/>。官方项目是 [DeanChensj/jiangshan-map](https://github.com/DeanChensj/jiangshan-map)，官方网站是 <https://deanchen.me/jiangshan-map/>，一般问题请到官方仓库反馈。
 >
 > 本分支的修改（2026 年 11 月），按同一 GPL-3.0 许可发布：
 > - 依据《三国志》补充三国人物行迹（蜀、吴、魏及汉末 B 级人物），附史料核对；

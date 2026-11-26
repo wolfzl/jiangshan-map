@@ -5,7 +5,7 @@
 </p>
 
 > [!NOTE]
-> **This is a fork.** It is maintained by [wolfzl](https://github.com/wolfzl) as the map backend for the [Sanguozhi · People and Events](https://wolfzl.github.io/) reading site, and is deployed at <https://wolfzl.github.io/jiangshan-map/>. The official project is [DeanChensj/jiangshan-map](https://github.com/DeanChensj/jiangshan-map) and the official site is <https://deanchen.me/jiangshan-map/>; please send general issues there.
+> **This is a fork.** It is maintained by [wolfzl](https://github.com/wolfzl) as the map backend for the [Sanguozhi · People and Events](https://wolfzl.github.io/sanguozhi/) reading site, and is deployed at <https://wolfzl.github.io/jiangshan-map/>. The official project is [DeanChensj/jiangshan-map](https://github.com/DeanChensj/jiangshan-map) and the official site is <https://deanchen.me/jiangshan-map/>; please send general issues there.
 >
 > Changes in this fork (2026-11), released under the same GPL-3.0 license:
 > - Sourced *Sanguozhi* itineraries for Three Kingdoms figures (Shu, Wu, Wei and late-Han B-tier people), with source checks.
