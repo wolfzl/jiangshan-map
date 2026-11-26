@@ -4,6 +4,18 @@
   <a href="README.md">English</a> · <strong>简体中文</strong>
 </p>
 
+> [!NOTE]
+> **这是一个分支（fork）。** 由 [wolfzl](https://github.com/wolfzl) 维护，作为[三国志 · 人物与事件](https://wolfzl.github.io/)阅读网站的地图后端，部署在 <https://wolfzl.github.io/jiangshan-map/>。官方项目是 [DeanChensj/jiangshan-map](https://github.com/DeanChensj/jiangshan-map)，官方网站是 <https://deanchen.me/jiangshan-map/>，一般问题请到官方仓库反馈。
+>
+> 本分支的修改（2026 年 11 月），按同一 GPL-3.0 许可发布：
+> - 依据《三国志》补充三国人物行迹（蜀、吴、魏及汉末 B 级人物），附史料核对；
+> - 战役推演框架，以及长平、官渡、赤壁、夷陵四场战役；
+> - URL 参数 `stop=a-b`，高亮人物路线上的一段站点；
+> - 本地预览服务脚本 `service.sh`；
+> - 仅在部署时生效：`.github/workflows/pages-fork.yml` 发布到 GitHub Pages，只在发布出去的副本里移除上游的 Cloudflare 统计脚本、把页面标记为 `noindex`（canonical 仍指向官方网站）；源码文件本身与上游保持一致。
+>
+> 下文的原始许可、版权与致谢均未改动。郡、州、府级边界数据“仅限学术、非商业使用”的限制同样适用。
+
 **一幅可以拖动时间、点城读史、追随古人足迹的中国历史交互舆图（公元前 403 年三家分晋 — 今）**
 
 [**立即在线把玩 → https://deanchen.me/jiangshan-map/**](https://deanchen.me/jiangshan-map/)

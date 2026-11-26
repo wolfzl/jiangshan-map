@@ -1,0 +1,53 @@
+# Fork-only workflow: deploys this fork to GitHub Pages as the map backend of the
+# Sanguozhi reading site. The source files stay identical to upstream; the two
+# deployment-only changes below are applied to the published copy only:
+#   1. remove the upstream Cloudflare Web Analytics beacon (its token belongs to
+#      the official site, so this fork's traffic must not be reported there);
+#   2. mark pages noindex, keeping the canonical link to the official site.
+name: Deploy fork to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    # Never runs in the upstream repository.
+    if: github.repository != 'DeanChensj/jiangshan-map'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build publish directory
+        run: |
+          mkdir _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
+          touch _site/.nojekyll
+
+      - name: Apply fork deployment changes
+        run: |
+          find _site -name '*.html' -print0 | xargs -0 sed -i \
+            -e '/static\.cloudflareinsights\.com\/beacon\.min\.js/d' \
+            -e 's|<meta name="robots" content="[^"]*" */\?>|<meta name="robots" content="noindex, follow" />|'
+          if grep -rl 'cloudflareinsights' --include='*.html' _site; then echo 'beacon still present'; exit 1; fi
+          grep -q 'content="noindex, follow"' _site/index.html
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

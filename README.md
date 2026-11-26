@@ -4,6 +4,18 @@
   <strong>English</strong> · <a href="README_ZH.md">简体中文 (Chinese)</a>
 </p>
 
+> [!NOTE]
+> **This is a fork.** It is maintained by [wolfzl](https://github.com/wolfzl) as the map backend for the [Sanguozhi · People and Events](https://wolfzl.github.io/) reading site, and is deployed at <https://wolfzl.github.io/jiangshan-map/>. The official project is [DeanChensj/jiangshan-map](https://github.com/DeanChensj/jiangshan-map) and the official site is <https://deanchen.me/jiangshan-map/>; please send general issues there.
+>
+> Changes in this fork (2026-11), released under the same GPL-3.0 license:
+> - Sourced *Sanguozhi* itineraries for Three Kingdoms figures (Shu, Wu, Wei and late-Han B-tier people), with source checks.
+> - Battle playback framework, with Changping, Guandu, Chibi and Yiling campaigns.
+> - `stop=a-b` URL parameter to highlight a range of stops on a person's route.
+> - A local preview service script (`service.sh`).
+> - Deployment only: `.github/workflows/pages-fork.yml` publishes to GitHub Pages and, in the published copy only, removes the upstream Cloudflare Web Analytics beacon and marks pages `noindex` (canonical links still point to the official site). The source files themselves stay identical to upstream.
+>
+> The original license, copyright and credits below are unchanged. The prefecture-level boundary data restrictions (academic, non-commercial use only) still apply.
+
 **An Interactive Historical Atlas of China from the Warring States (403 BCE) to the Present — Scrub Through Time, Trace Ancient Cities, and Walk in the Footsteps of History**
 
 [**Play Live Demo (English UI) → https://deanchen.me/jiangshan-map/?lang=en**](https://deanchen.me/jiangshan-map/?lang=en)
